@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Find Your? section</title>
+  <title>Find Your Section - Meme Edition</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
-  background-image: url('Photo.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+      background-image: url('Photo.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(10px); }
@@ -30,12 +30,21 @@
       100% { background-position: 0% 50%; }
     }
     
+    @keyframes wiggle {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+    
     .animate-fade-in {
       animation: fadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
     
     .animate-float {
       animation: float 4s ease-in-out infinite;
+    }
+    
+    .animate-wiggle {
+      animation: wiggle 1s ease-in-out infinite;
     }
     
     .gradient-bg {
@@ -56,7 +65,7 @@
     }
     
     .btn-hover:hover {
-      transform: translateY(-2px);
+      transform: translateY(-2px) scale(1.02);
       box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
     }
     
@@ -99,9 +108,30 @@
       30%, 50%, 70% { transform: translateX(-4px); }
       40%, 60% { transform: translateX(4px); }
     }
+    
+    .meme-border {
+      border: 4px dashed #6366f1;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+    
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate-slide-up {
+      animation: slideUp 0.6s ease-out forwards;
+    }
   </style>
 </head>
-<body style="background-image: url('Photo.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;" class="min-h-screen p-4 md:p-8 flex items-center justify-center">
+<body class="min-h-screen p-4 md:p-8 flex items-center justify-center">
 
   <div class="max-w-md w-full">
     <div class="relative">
@@ -112,17 +142,17 @@
       
       <!-- Main card -->
       <div class="bg-white rounded-2xl shadow-2xl overflow-hidden transition-all hover:shadow-2xl relative z-10">
-        <!-- Header with gradient background -->
+        <!-- Header with meme-style design -->
         <div class="gradient-bg p-6 text-white relative overflow-hidden">
           <div class="absolute inset-0 bg-white/10"></div>
           <div class="relative z-10">
             <div class="flex items-center space-x-4">
-              <div class="glass-effect p-3 rounded-full">
-                <i class="fas fa-heart text-xl"></i>
+              <div class="glass-effect p-3 rounded-full animate-wiggle">
+                <i class="fas fa-search text-xl"></i>
               </div>
               <div>
-                <h1 class="text-2xl font-bold tracking-tight">Find Your?...Section (last year)</h1>
-                <p class="text-blue-100/90 font-medium">Here you go</p>
+                <h1 class="text-2xl font-bold tracking-tight">Find Your Section 🔍</h1>
+                <p class="text-blue-100/90 font-medium">Stalker Mode: Activated 👀</p>
               </div>
             </div>
           </div>
@@ -132,8 +162,8 @@
         <div class="p-6">
           <div class="mb-6">
             <label for="rollInput" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-              <i class="fas fa-user-graduate mr-2 text-blue-500"></i>
-              Enter Roll Number 😉
+              <i class="fas fa-user-secret mr-2 text-blue-500"></i>
+              Enter Roll Number (Totally Not Stalking 👀)
             </label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -153,8 +183,8 @@
             onclick="checkRoll()" 
             class="w-full gradient-bg hover:opacity-90 text-white font-medium py-3 px-4 rounded-lg transition-all btn-hover flex items-center justify-center space-x-2 shadow-md"
           >
-            <i class="fas fa-search"></i>
-            <span>Search!</span>
+            <i class="fas fa-binoculars"></i>
+            <span>Let's Stalk! 🕵️</span>
           </button>
           
           <div id="result" class="mt-6 p-4 rounded-lg animate-fade-in result-info border border-gray-100">
@@ -162,9 +192,15 @@
               <i class="fas fa-circle-notch fa-spin text-blue-500 mt-1"></i>
               <div>
                 <p class="font-medium">System Initializing...</p>
-                <p class="text-sm opacity-80">Loading roll number database</p>
+                <p class="text-sm opacity-80">Loading stalker database 🤫</p>
               </div>
             </div>
+          </div>
+          
+          <!-- Meme image container (hidden by default) -->
+          <div id="memeContainer" class="mt-6 hidden">
+            <img id="memeImage" src="Photo.jpg" alt="Meme" class="w-full meme-border animate-slide-up">
+            <p class="text-center text-sm text-gray-600 mt-2 font-medium">😂 Mission Accomplished! 😂</p>
           </div>
         </div>
         
@@ -173,7 +209,7 @@
           <div class="flex items-center justify-between text-sm text-gray-600">
             <div class="flex items-center">
               <i class="fas fa-database mr-2 text-blue-500"></i>
-              <span id="rollCount" class="font-medium">0</span> roll numbers loaded
+              <span id="rollCount" class="font-medium">0</span> victims loaded 😈
             </div>
             <div class="flex items-center">
               <i class="fas fa-clock mr-2 text-purple-500"></i>
@@ -209,7 +245,7 @@
         // Update result display
         setResultContent(
           `✅ Database Loaded Successfully`,
-          `${count.toLocaleString()} roll numbers ready for search`,
+          `${count.toLocaleString()} targets locked and loaded 🎯`,
           'success'
         );
         console.log("✅ Loaded", count, "roll numbers");
@@ -217,8 +253,8 @@
       .catch(err => {
         console.error("❌ Failed to load roll data:", err);
         setResultContent(
-          "⚠️ Connection Error",
-          'Failed to load roll numbers. Please check your connection.',
+          "⚠️ Houston, We Have A Problem!",
+          'Failed to load roll numbers. Did you unplug the internet? 🤔',
           'error'
         );
       });
@@ -227,8 +263,8 @@
     function findSection(roll) {
       if (!rollMap || Object.keys(rollMap).length === 0) {
         return {
-          message: "🔄 System Initializing",
-          details: 'Please wait while we load the roll numbers',
+          message: "🔄 Hold Your Horses!",
+          details: 'Database is still loading... Patience, young stalker! 🐌',
           type: "warning"
         };
       }
@@ -236,8 +272,8 @@
       // Direct match
       if (rollMap[roll]) {
         return {
-          message: `🎉 Perfect Match! Roll ${roll}`,
-          details: `Was in Section ${rollMap[roll]}`,
+          message: `🎉 BINGO! Found Roll ${roll}!`,
+          details: `This legend was in Section ${rollMap[roll]} last year! 🏆`,
           type: "success"
         };
       }
@@ -249,8 +285,8 @@
       );
       
       return {
-        message: `Uhh, can't find it in my database , yet wont leave you sad XD`,
-        details: `He/She was in :  Section ${rollMap[nearest]}`,
+        message: `🤷‍♂️ Not in Database (Yet)`,
+        details: `But hey, the closest match (Roll ${nearest}) was in Section ${rollMap[nearest]}! Close enough? 🎯`,
         type: "info"
       };
     }
@@ -303,6 +339,18 @@
       lastResultType = type;
     }
 
+    // Show meme image
+    function showMeme() {
+      const memeContainer = document.getElementById('memeContainer');
+      memeContainer.classList.remove('hidden');
+      
+      // Reset animation
+      const memeImage = document.getElementById('memeImage');
+      memeImage.classList.remove('animate-slide-up');
+      void memeImage.offsetWidth; // Trigger reflow
+      memeImage.classList.add('animate-slide-up');
+    }
+
     // Button click handler
     function checkRoll() {
       const rollInput = document.getElementById('rollInput');
@@ -310,8 +358,8 @@
       
       if (isNaN(roll) || rollInput.value.trim() === '') {
         setResultContent(
-          "⚠️ Invalid Input",
-          "Please enter a valid roll number",
+          "⚠️ Bruh, Invalid Input! 🤦",
+          "Please enter a valid roll number. Numbers only, please! 🔢",
           "warning"
         );
         // Add shake animation to input
@@ -326,6 +374,9 @@
       
       const result = findSection(roll);
       setResultContent(result.message, result.details, result.type);
+      
+      // Show meme image after search
+      setTimeout(() => showMeme(), 300);
     }
   </script>
 
