@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Find Your Section - Meme Edition</title>
+  <title>Find Your Section - Diwali Edition</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -30,9 +30,9 @@
       100% { background-position: 0% 50%; }
     }
     
-    @keyframes wiggle {
-      0%, 100% { transform: rotate(-3deg); }
-      50% { transform: rotate(3deg); }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
     
     .animate-fade-in {
@@ -43,12 +43,12 @@
       animation: float 4s ease-in-out infinite;
     }
     
-    .animate-wiggle {
-      animation: wiggle 1s ease-in-out infinite;
+    .animate-spin-slow {
+      animation: spin 3s linear infinite;
     }
     
     .gradient-bg {
-      background: linear-gradient(-45deg, #3b82f6, #8b5cf6, #ec4899, #f59e0b);
+      background: linear-gradient(-45deg, #ff6b35, #f7931e, #fdc500, #ff6b35);
       background-size: 400% 400%;
       animation: gradientBG 12s ease infinite;
     }
@@ -61,12 +61,12 @@
     }
     
     .input-glow:focus {
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.3);
     }
     
     .btn-hover:hover {
       transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 16px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 6px 16px rgba(249, 115, 22, 0.3);
     }
     
     .transition-all {
@@ -110,9 +110,9 @@
     }
     
     .meme-border {
-      border: 4px dashed #6366f1;
+      border: 4px solid #f97316;
       border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
     }
     
     @keyframes slideUp {
@@ -129,31 +129,116 @@
     .animate-slide-up {
       animation: slideUp 0.6s ease-out forwards;
     }
+    
+    /* Fireworks */
+    .firework {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+    }
+    
+    @keyframes firework-burst {
+      0% {
+        transform: scale(0);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 0;
+      }
+    }
+    
+    .firework-particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      animation: firework-burst 1s ease-out forwards;
+    }
+    
+    @keyframes diya-flicker {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.8; transform: scale(1.05); }
+    }
+    
+    .diya-flame {
+      animation: diya-flicker 1.5s ease-in-out infinite;
+    }
+    
+    /* Crackers Animation */
+    @keyframes cracker-explode {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: translateY(-100px) scale(1.2);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-200px) scale(0);
+        opacity: 0;
+      }
+    }
+    
+    .cracker {
+      position: fixed;
+      font-size: 2rem;
+      pointer-events: none;
+      z-index: 9998;
+      animation: cracker-explode 2s ease-out forwards;
+    }
+    
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+    
+    .sparkle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: radial-gradient(circle, #ffd700, #ff8c00);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9997;
+      animation: sparkle 1s ease-out forwards;
+      box-shadow: 0 0 10px #ffd700;
+    }
   </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 flex items-center justify-center">
 
+  <!-- Fireworks container -->
+  <div id="fireworksContainer"></div>
+  
+  <!-- Crackers container -->
+  <div id="crackersContainer"></div>
+
   <div class="max-w-md w-full">
     <div class="relative">
       <!-- Floating decorative elements -->
-      <div class="absolute -top-16 -left-16 w-32 h-32 rounded-full bg-blue-200 opacity-20 animate-float"></div>
-      <div class="absolute -bottom-12 -right-12 w-40 h-40 rounded-full bg-purple-200 opacity-20 animate-float" style="animation-delay: 1s;"></div>
-      <div class="absolute top-1/4 -right-8 w-24 h-24 rounded-full bg-pink-200 opacity-20 animate-float" style="animation-delay: 2s;"></div>
+      <div class="absolute -top-16 -left-16 w-32 h-32 rounded-full bg-orange-200 opacity-20 animate-float"></div>
+      <div class="absolute -bottom-12 -right-12 w-40 h-40 rounded-full bg-yellow-200 opacity-20 animate-float" style="animation-delay: 1s;"></div>
+      <div class="absolute top-1/4 -right-8 w-24 h-24 rounded-full bg-red-200 opacity-20 animate-float" style="animation-delay: 2s;"></div>
       
       <!-- Main card -->
       <div class="bg-white rounded-2xl shadow-2xl overflow-hidden transition-all hover:shadow-2xl relative z-10">
-        <!-- Header with meme-style design -->
+        <!-- Header with Diwali theme -->
         <div class="gradient-bg p-6 text-white relative overflow-hidden">
           <div class="absolute inset-0 bg-white/10"></div>
           <div class="relative z-10">
-            <div class="flex items-center space-x-4">
-              <div class="glass-effect p-3 rounded-full animate-wiggle">
-                <i class="fas fa-search text-xl"></i>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center space-x-4">
+                <div class="glass-effect p-3 rounded-full">
+                  <i class="fas fa-fire diya-flame text-xl"></i>
+                </div>
+                <div>
+                  <h1 class="text-2xl font-bold tracking-tight">🪔 Happy Diwali! 🪔</h1>
+                  <p class="text-orange-100/90 font-medium">Find Your Section (Last Year)</p>
+                </div>
               </div>
-              <div>
-                <h1 class="text-2xl font-bold tracking-tight">Find Your Section 🔍</h1>
-                <p class="text-blue-100/90 font-medium">Stalker Mode: Activated 👀</p>
-              </div>
+              <div class="text-3xl animate-spin-slow">🎆</div>
             </div>
           </div>
         </div>
@@ -162,8 +247,8 @@
         <div class="p-6">
           <div class="mb-6">
             <label for="rollInput" class="block text-sm font-medium text-gray-700 mb-2 flex items-center">
-              <i class="fas fa-user-secret mr-2 text-blue-500"></i>
-              Enter Roll Number (Totally Not Stalking 👀)
+              <i class="fas fa-user-graduate mr-2 text-orange-500"></i>
+              Enter Roll Number 🎯
             </label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -173,7 +258,7 @@
                 type="number" 
                 id="rollInput" 
                 placeholder="e.g. 24052017" 
-                class="pl-10 w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 input-glow transition-all"
+                class="pl-10 w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-orange-500 focus:border-orange-500 input-glow transition-all"
                 onkeypress="if(event.key === 'Enter') checkRoll()"
               >
             </div>
@@ -183,36 +268,36 @@
             onclick="checkRoll()" 
             class="w-full gradient-bg hover:opacity-90 text-white font-medium py-3 px-4 rounded-lg transition-all btn-hover flex items-center justify-center space-x-2 shadow-md"
           >
-            <i class="fas fa-binoculars"></i>
-            <span>Let's Stalk! 🕵️</span>
+            <i class="fas fa-rocket"></i>
+            <span>Launch Search! 🚀</span>
           </button>
           
           <div id="result" class="mt-6 p-4 rounded-lg animate-fade-in result-info border border-gray-100">
             <div class="flex items-start space-x-3">
               <i class="fas fa-circle-notch fa-spin text-blue-500 mt-1"></i>
               <div>
-                <p class="font-medium">System Initializing...</p>
-                <p class="text-sm opacity-80">Loading stalker database 🤫</p>
+                <p class="font-medium">System Loading...</p>
+                <p class="text-sm opacity-80">Getting ready for fireworks! 🎆</p>
               </div>
             </div>
           </div>
           
           <!-- Meme image container (hidden by default) -->
           <div id="memeContainer" class="mt-6 hidden">
-            <img id="memeImage" src="Photo.jpg" alt="Meme" class="w-full meme-border animate-slide-up">
-            <p class="text-center text-sm text-gray-600 mt-2 font-medium">😂 Mission Accomplished! 😂</p>
+            <img id="memeImage" src="https://i.ibb.co/svVFP7tL/image.jpg" alt="Meme" class="w-full meme-border animate-slide-up">
+            <p class="text-center text-lg text-orange-600 mt-3 font-bold">🎉 Found It! Time to Celebrate! 🎉</p>
           </div>
         </div>
         
         <!-- Footer -->
-        <div class="bg-gray-50/70 px-6 py-4 border-t border-gray-200/50">
+        <div class="bg-gradient-to-r from-orange-50 to-yellow-50 px-6 py-4 border-t border-orange-200/50">
           <div class="flex items-center justify-between text-sm text-gray-600">
             <div class="flex items-center">
-              <i class="fas fa-database mr-2 text-blue-500"></i>
-              <span id="rollCount" class="font-medium">0</span> victims loaded 😈
+              <i class="fas fa-database mr-2 text-orange-500"></i>
+              <span id="rollCount" class="font-medium">0</span> rolls loaded 📚
             </div>
             <div class="flex items-center">
-              <i class="fas fa-clock mr-2 text-purple-500"></i>
+              <i class="fas fa-clock mr-2 text-yellow-500"></i>
               <span id="currentTime" class="font-medium"></span>
             </div>
           </div>
@@ -234,27 +319,100 @@
     setInterval(updateTime, 1000);
     updateTime();
 
+    // Fireworks animation
+    function createFirework(x, y) {
+      const colors = ['#ff6b35', '#f7931e', '#fdc500', '#ff1744', '#d500f9', '#00e676'];
+      const particles = 30;
+      
+      for (let i = 0; i < particles; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'firework-particle';
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        particle.style.left = x + 'px';
+        particle.style.top = y + 'px';
+        
+        const angle = (Math.PI * 2 * i) / particles;
+        const velocity = 50 + Math.random() * 50;
+        const vx = Math.cos(angle) * velocity;
+        const vy = Math.sin(angle) * velocity;
+        
+        particle.style.setProperty('--tx', vx + 'px');
+        particle.style.setProperty('--ty', vy + 'px');
+        
+        document.getElementById('fireworksContainer').appendChild(particle);
+        
+        setTimeout(() => particle.remove(), 1000);
+      }
+    }
+
+    // Random fireworks
+    function launchRandomFirework() {
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * (window.innerHeight * 0.6);
+      createFirework(x, y);
+    }
+
+    // Create cracker animation
+    function createCracker(x, y) {
+      const crackerEmojis = ['🧨', '🎆', '✨', '💥', '🎇'];
+      const cracker = document.createElement('div');
+      cracker.className = 'cracker';
+      cracker.textContent = crackerEmojis[Math.floor(Math.random() * crackerEmojis.length)];
+      cracker.style.left = x + 'px';
+      cracker.style.bottom = '0px';
+      
+      document.getElementById('crackersContainer').appendChild(cracker);
+      
+      // Create sparkles
+      setTimeout(() => {
+        for (let i = 0; i < 15; i++) {
+          const sparkle = document.createElement('div');
+          sparkle.className = 'sparkle';
+          const offsetX = (Math.random() - 0.5) * 100;
+          const offsetY = (Math.random() - 0.5) * 100;
+          sparkle.style.left = (x + offsetX) + 'px';
+          sparkle.style.top = (y - 100 + offsetY) + 'px';
+          document.getElementById('crackersContainer').appendChild(sparkle);
+          setTimeout(() => sparkle.remove(), 1000);
+        }
+      }, 500);
+      
+      setTimeout(() => cracker.remove(), 2000);
+    }
+
+    // Launch random crackers
+    function launchRandomCracker() {
+      const x = Math.random() * window.innerWidth;
+      const y = Math.random() * (window.innerHeight * 0.5) + (window.innerHeight * 0.3);
+      createCracker(x, y);
+    }
+
     // Load roll numbers JSON
     fetch("rolls.json.json")
       .then(res => res.json())
       .then(data => {
-        rollMap = data[0]; // because your JSON is wrapped in an array
+        rollMap = data[0];
         const count = Object.keys(rollMap).length;
         document.getElementById('rollCount').textContent = count.toLocaleString();
         
-        // Update result display
         setResultContent(
-          `✅ Database Loaded Successfully`,
-          `${count.toLocaleString()} targets locked and loaded 🎯`,
+          `✅ Database Loaded Successfully!`,
+          `${count.toLocaleString()} roll numbers ready to search! 🎊`,
           'success'
         );
         console.log("✅ Loaded", count, "roll numbers");
+        
+        // Launch celebration fireworks
+        for (let i = 0; i < 5; i++) {
+          setTimeout(() => launchRandomFirework(), i * 300);
+          setTimeout(() => launchRandomCracker(), i * 400);
+        }
       })
       .catch(err => {
         console.error("❌ Failed to load roll data:", err);
         setResultContent(
-          "⚠️ Houston, We Have A Problem!",
-          'Failed to load roll numbers. Did you unplug the internet? 🤔',
+          "⚠️ Oops! Something Went Wrong",
+          'Could not load the database. Please refresh! 🔄',
           'error'
         );
       });
@@ -263,8 +421,8 @@
     function findSection(roll) {
       if (!rollMap || Object.keys(rollMap).length === 0) {
         return {
-          message: "🔄 Hold Your Horses!",
-          details: 'Database is still loading... Patience, young stalker! 🐌',
+          message: "🔄 Hold On!",
+          details: 'Database is still loading... Please wait! ⏳',
           type: "warning"
         };
       }
@@ -272,8 +430,8 @@
       // Direct match
       if (rollMap[roll]) {
         return {
-          message: `🎉 BINGO! Found Roll ${roll}!`,
-          details: `This legend was in Section ${rollMap[roll]} last year! 🏆`,
+          message: `🎉 BOOM! Found Roll ${roll}!`,
+          details: `They were in Section ${rollMap[roll]} last year! 🏆`,
           type: "success"
         };
       }
@@ -285,8 +443,8 @@
       );
       
       return {
-        message: `🤷‍♂️ Not in Database (Yet)`,
-        details: `But hey, the closest match (Roll ${nearest}) was in Section ${rollMap[nearest]}! Close enough? 🎯`,
+        message: `🤔 Hmm... Not Found!`,
+        details: `But closest roll ${nearest} was in Section ${rollMap[nearest]}! Maybe try that? 🎯`,
         type: "info"
       };
     }
@@ -295,16 +453,13 @@
     function setResultContent(message, details, type) {
       const resultDiv = document.getElementById('result');
       
-      // Remove previous type class
       resultDiv.classList.remove(
         'result-success', 'result-error', 
         'result-warning', 'result-info'
       );
       
-      // Add new type class
       resultDiv.classList.add(`result-${type}`);
       
-      // Set icon based on type
       let icon = 'fa-info-circle';
       let iconColor = 'text-blue-500';
       if (type === 'success') {
@@ -320,7 +475,6 @@
         iconColor = 'text-amber-500';
       }
       
-      // Update content
       resultDiv.innerHTML = `
         <div class="flex items-start space-x-3">
           <i class="fas ${icon} ${iconColor} text-lg mt-0.5"></i>
@@ -331,9 +485,8 @@
         </div>
       `;
       
-      // Add animation
       resultDiv.classList.remove('animate-fade-in');
-      void resultDiv.offsetWidth; // Trigger reflow
+      void resultDiv.offsetWidth;
       resultDiv.classList.add('animate-fade-in');
       
       lastResultType = type;
@@ -344,10 +497,9 @@
       const memeContainer = document.getElementById('memeContainer');
       memeContainer.classList.remove('hidden');
       
-      // Reset animation
       const memeImage = document.getElementById('memeImage');
       memeImage.classList.remove('animate-slide-up');
-      void memeImage.offsetWidth; // Trigger reflow
+      void memeImage.offsetWidth;
       memeImage.classList.add('animate-slide-up');
     }
 
@@ -358,26 +510,42 @@
       
       if (isNaN(roll) || rollInput.value.trim() === '') {
         setResultContent(
-          "⚠️ Bruh, Invalid Input! 🤦",
-          "Please enter a valid roll number. Numbers only, please! 🔢",
+          "⚠️ Whoops! Invalid Input!",
+          "Please enter a valid roll number! 🔢",
           "warning"
         );
-        // Add shake animation to input
         rollInput.classList.add('animate-shake');
         setTimeout(() => rollInput.classList.remove('animate-shake'), 500);
         return;
       }
       
-      // Add pulse effect to input
       rollInput.classList.add('pulse');
       setTimeout(() => rollInput.classList.remove('pulse'), 1000);
       
       const result = findSection(roll);
       setResultContent(result.message, result.details, result.type);
       
+      // Launch fireworks on successful search
+      if (result.type === 'success' || result.type === 'info') {
+        for (let i = 0; i < 8; i++) {
+          setTimeout(() => launchRandomFirework(), i * 200);
+          setTimeout(() => launchRandomCracker(), i * 250);
+        }
+      }
+      
       // Show meme image after search
       setTimeout(() => showMeme(), 300);
     }
+    
+    // Continuous random fireworks and crackers
+    setInterval(() => {
+      if (Math.random() > 0.7) {
+        launchRandomFirework();
+      }
+      if (Math.random() > 0.8) {
+        launchRandomCracker();
+      }
+    }, 3000);
   </script>
 
   <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
